@@ -1,17 +1,17 @@
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import { USDT } from "./USDT.sol";
+import { USDI } from "./USDI.sol";
 //import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract ChildBridge {
-    address usdt_addr; // USDT smart contract address on Excoincial
+    address usdi_addr; // USDI smart contract address on Excoincial
     address owner; // Owner address
     address ChildChainProxyManager;  //ChildChainProxyManager address
     bool warning = false;
 
-    USDT usdtContract;
-    // IERC20 usdtContract;
+    USDI usdiContract;
+    // IERC20 usdiContract;
 
     mapping (address => bool) gateways;
     address[] addedAddress;
@@ -40,12 +40,12 @@ contract ChildBridge {
 
 
 
-    constructor(address _usdt) {
+    constructor(address _usdi) {
         owner = msg.sender;
         ChildChainProxyManager = msg.sender;
-        usdt_addr = _usdt;
-        usdtContract = USDT(usdt_addr);
-        // usdtContract = IERC20(usdt_addr);
+        usdi_addr = _usdi;
+        usdiContract = USDI(usdi_addr);
+        // usdiContract = IERC20(usdi_addr);
     }
 
 
@@ -53,24 +53,24 @@ contract ChildBridge {
 
 
     function unrelease(address _from, uint _amount) public onlyGateway {
-        require(usdtContract.allowance(_from, address(this)) >= _amount, "The approved amount is not enough.");
-        usdtContract.transferFrom(_from, address(this), _amount);
+        require(usdiContract.allowance(_from, address(this)) >= _amount, "The approved amount is not enough.");
+        usdiContract.transferFrom(_from, address(this), _amount);
         emit Unrelease(_from, _amount);
     }
 
     function release(address _to, uint _amount) public onlyGateway {
-        if (usdtContract.balanceOf(address(this)) <= _amount) {
+        if (usdiContract.balanceOf(address(this)) <= _amount) {
             warning = true;
             require(!warning, "Excuse me, please try again later.");
         }
-        usdtContract.transfer(_to, _amount);
+        usdiContract.transfer(_to, _amount);
         emit Release(_to, _amount);
     }
 
     function withdraw(uint _amount) public onlyOwner{
         require(_amount != 0, "Check the amount you want to withdraw.");
-        require(_amount <= usdtContract.balanceOf(address(this)), "The amount you want is too large");
-        usdtContract.transfer(owner, _amount);
+        require(_amount <= usdiContract.balanceOf(address(this)), "The amount you want is too large");
+        usdiContract.transfer(owner, _amount);
         emit Withdraw(_amount);
     }
 
@@ -131,22 +131,22 @@ contract ChildBridge {
 
 
 
-    function setUSDTaddress(address newCoinAddress) public onlyChildChainProxyManager {
+    function setUSDIaddress(address newCoinAddress) public onlyChildChainProxyManager {
         require(newCoinAddress != address(0), "Please recheck new contract address.");
-        usdt_addr = newCoinAddress;
-        usdtContract = USDT(usdt_addr);
-        // usdtContract = IERC20(usdt_addr);
+        usdi_addr = newCoinAddress;
+        usdiContract = USDI(usdi_addr);
+        // usdiContract = IERC20(usdi_addr);
     }
 
-    function getUSDTaddress() public view onlyChildChainProxyManager returns(address) {
-        return usdt_addr;
+    function getUSDIaddress() public view onlyChildChainProxyManager returns(address) {
+        return usdi_addr;
     }
 
 
 
 
     function getLiquidityTotalAmount() public view onlyChildChainProxyManager returns(uint) {
-        return usdtContract.balanceOf(address(this));
+        return usdiContract.balanceOf(address(this));
     }
 
 

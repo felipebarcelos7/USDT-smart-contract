@@ -18,11 +18,11 @@ async function main() {
 
 
 
-  // // Deploy USDT contract
-  // const MainToken = await hre.ethers.getContractFactory("USDT");
-  // const main_token = await MainToken.deploy("EXL-USD", "USDT", 18, 5000);
+  // // Deploy USDIcontract
+  // const MainToken = await hre.ethers.getContractFactory("USDI");
+  // const main_token = await MainToken.deploy("EXL-USD", "USDI", 18, 5000);
   // await main_token.deployed();
-  // console.log("USDT contract address: " + main_token.address);
+  // console.log("USDIcontract address: " + main_token.address);
 
 
   // // Deploy MainBridge contract
@@ -31,11 +31,12 @@ async function main() {
   // await main_bridge.deployed();
   // console.log("MainBridge contract address: " + main_bridge.address);
 
-  // Deploy USDT contract
-  const ChildToken = await hre.ethers.getContractFactory("USDT");
-  const child_token = await ChildToken.deploy("EXL-USD", "R.USDT", 18, 4000);
-  await child_token.deployed();
-  console.log("R.USDT contract address: " + child_token.address);
+  // Deploy USDIcontract
+  const InvestCoinToken = await hre.ethers.getContractFactory("USDI");
+  const investCoin_token = await InvestCoinToken.deploy("InvestCoin USD", "USDI", 9, "100000000000");
+  await investCoin_token.deployed();
+  console.log("InvestCoin USD contract address: " + investCoin_token.address);
+  
 
 
   // Deploy MainBridge contract

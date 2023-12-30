@@ -1,4 +1,4 @@
-const usdtABI = [
+const usdiABI = [
   {
     "inputs": [
       {
@@ -607,7 +607,7 @@ const mainbridgeABI = [
     "inputs": [
       {
         "internalType": "address",
-        "name": "_usdt",
+        "name": "_usdi",
         "type": "address"
       }
     ],
@@ -784,7 +784,7 @@ const mainbridgeABI = [
   },
   {
     "inputs": [],
-    "name": "getUSDTaddress",
+    "name": "getUSDIaddress",
     "outputs": [
       {
         "internalType": "address",
@@ -834,7 +834,7 @@ const mainbridgeABI = [
         "type": "address"
       }
     ],
-    "name": "setUSDTaddress",
+    "name": "setUSDIaddress",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -903,7 +903,7 @@ const childbridgeABI = [
     "inputs": [
       {
         "internalType": "address",
-        "name": "_usdt",
+        "name": "_usdi",
         "type": "address"
       }
     ],
@@ -1080,7 +1080,7 @@ const childbridgeABI = [
   },
   {
     "inputs": [],
-    "name": "getUSDTaddress",
+    "name": "getUSDIaddress",
     "outputs": [
       {
         "internalType": "address",
@@ -1130,7 +1130,7 @@ const childbridgeABI = [
         "type": "address"
       }
     ],
-    "name": "setUSDTaddress",
+    "name": "setUSDIaddress",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

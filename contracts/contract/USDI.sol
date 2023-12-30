@@ -235,8 +235,8 @@ contract BlackList is ERC20 {
 }
 
 
-// USDT Token
-contract USDT is Pausable, BlackList {
+// USDI Token
+contract USDI is Pausable, BlackList {
     using SafeMath for uint;
 
     event Issue(uint amount);
